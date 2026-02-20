@@ -29,8 +29,189 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 60px 0 32px 0;
+  padding: 40px 0 32px 0;
   margin-bottom: 24px;
+}
+
+.padlock-svg {
+  margin-bottom: 16px;
+}
+
+/* Shackle animation */
+.shackle {
+  transform-origin: 40px 50px;
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.shackle.open {
+  transform: rotate(-45deg);
+}
+
+.lock-body {
+  transition: fill 0.4s ease;
+}
+
+.status-text {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin: 0;
+  transition: color 0.4s ease;
+}
+
+.status-subtitle {
+  font-size: 14px;
+  color: #888888;
+  margin: 8px 0 0 0;
+  text-align: center;
+}
+
+/* Goals Container */
+.goals-container {
+  flex: 1;
+  margin-bottom: 24px;
+}
+
+.goals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Goal Card */
+.goal-card {
+  background: #12121f;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  transition: opacity 0.3s ease, background 0.2s ease;
+  border: 2px solid #1e1e30;
+}
+
+.goal-card:active {
+  background: #1a1a2e;
+}
+
+.goal-card.done {
+  opacity: 0.6;
+}
+
+.goal-card-content {
+  flex: 1;
+}
+
+.goal-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.goal-emoji {
+  font-size: 24px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.goal-distraction {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  transition: opacity 0.3s ease;
+}
+
+.goal-distraction.strikethrough {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.goal-description {
+  font-size: 14px;
+  color: #888888;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.goal-checkbox {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 2px solid #888888;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #0f0f1a;
+  flex-shrink: 0;
+}
+
+.goal-checkbox:hover {
+  border-color: #00ff88;
+}
+
+.goal-checkbox.checked {
+  background: #00ff88;
+  border-color: #00ff88;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.empty-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+}
+
+.empty-hint {
+  font-size: 14px;
+  color: #888888;
+  margin: 0;
+}
+
+/* Floating Add Button */
+.add-button {
+  position: fixed;
+  bottom: 24px;
+  right: calc((100vw - 375px) / 2 + 24px);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #00ff88;
+  border: none;
+  color: #0f0f1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 255, 136, 0.4);
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.add-button:hover {
+  box-shadow: 0 6px 30px rgba(0, 255, 136, 0.6);
+  transform: translateY(-2px) scale(1.05);
+}
+
+.add-button:active {
+  transform: translateY(0) scale(0.95);
+}
+
+@media (max-width: 375px) {
+  .add-button {
+    right: 24px;
+  }
 }
 
 .padlock-svg {
