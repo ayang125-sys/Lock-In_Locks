@@ -585,6 +585,7 @@
 
 .confirmation-item:last-of-type {
   margin-bottom: 24px;
+  border-bottom: none;
 }
 
 .confirmation-icon {
