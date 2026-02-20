@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import '@/App.css';
 import Dashboard from '@/components/Dashboard';
 import UnlockCelebration from '@/components/UnlockCelebration';
+import GoalSetupScreen from '@/components/GoalSetupScreen';
 
 function App() {
   // Mock data starting in LOCKED state (all done: false)
@@ -12,6 +13,13 @@ function App() {
 
   const [isLocked, setIsLocked] = useState(true);
   const [showCelebration, setShowCelebration] = useState(false);
+  const [hasGoalSetup, setHasGoalSetup] = useState(false);
+
+  // Check if user has completed goal setup
+  useEffect(() => {
+    const goalData = localStorage.getItem('goal_description');
+    setHasGoalSetup(!!goalData);
+  }, []);
 
   // Toggle assignment completion
   const toggleAssignment = (id) => {
@@ -38,6 +46,20 @@ function App() {
       }, 3000);
     }
   }, [assignments, isLocked]);
+
+  // Handle goal setup completion
+  const handleGoalSetup = () => {
+    setHasGoalSetup(true);
+  };
+
+  // Show goal setup screen if no goal data exists
+  if (!hasGoalSetup) {
+    return (
+      <div className="App">
+        <GoalSetupScreen onComplete={handleGoalSetup} />
+      </div>
+    );
+  }
 
   return (
     <div className="App">
