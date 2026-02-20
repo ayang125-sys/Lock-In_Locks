@@ -254,33 +254,98 @@
   gap: 12px;
 }
 
-/* Progress Section */
-.progress-section {
-  margin-bottom: 24px;
-  padding: 0 4px;
+/* ========================================
+   ADD GOAL SCREEN
+   ======================================== */
+
+.add-goal-screen {
+  max-width: 375px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
 }
 
-.progress-text {
-  font-size: 14px;
-  font-weight: 600;
+.add-goal-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding-top: 8px;
+}
+
+.back-arrow {
+  background: transparent;
+  border: none;
   color: #888888;
-  margin: 0 0 12px 0;
-  text-align: center;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
-.progress-bar-container {
+.back-arrow:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.back-arrow:active {
+  transform: scale(0.9);
+}
+
+.add-goal-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+}
+
+.add-goal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Submit Button for Add Goal */
+.add-goal-submit {
   width: 100%;
-  height: 8px;
-  background: #1e1e30;
-  border-radius: 4px;
-  overflow: hidden;
+  padding: 18px 24px;
+  border-radius: 16px;
+  border: none;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  margin-top: 16px;
 }
 
-.progress-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #00ff88 0%, #00cc70 100%);
-  border-radius: 4px;
-  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+.add-goal-submit.disabled {
+  background: #1e1e30;
+  color: #555555;
+  cursor: not-allowed;
+}
+
+.add-goal-submit.active {
+  background: #00ff88;
+  color: #0f0f1a;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+}
+
+.add-goal-submit.active:hover {
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+  transform: translateY(-2px);
+}
+
+.add-goal-submit.active:active {
+  transform: translateY(0);
 }
 
 /* Assignment Card */
