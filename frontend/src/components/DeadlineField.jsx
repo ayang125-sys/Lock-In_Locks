@@ -43,7 +43,7 @@ const DeadlineField = ({ value, onChange }) => {
         type="datetime-local"
         className="field-input deadline-input"
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={handleChange}
         min={new Date().toISOString().slice(0, 16)}
         data-testid="deadline-input"
       />
