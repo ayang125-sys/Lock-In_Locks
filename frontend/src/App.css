@@ -613,126 +613,26 @@
   padding: 12px;
 }
 
-/* Confirmation Overlay */
-.confirmation-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(15, 15, 26, 0.95);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  animation: overlayFadeIn 0.3s ease;
-  padding: 16px;
-}
-
-@keyframes overlayFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.confirmation-card {
-  background: #12121f;
-  border: 2px solid #1e1e30;
-  border-radius: 20px;
-  padding: 32px 24px;
-  max-width: 375px;
-  width: 100%;
-  animation: cardSlideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-@keyframes cardSlideUp {
-  from {
-    transform: translateY(30px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.confirmation-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 24px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #1e1e30;
-}
-
-.confirmation-item:last-of-type {
-  margin-bottom: 24px;
-  border-bottom: none;
-}
-
-.confirmation-icon {
-  font-size: 28px;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.confirmation-label {
-  font-size: 13px;
-  color: #888888;
-  margin: 0 0 6px 0;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.confirmation-value {
-  font-size: 16px;
-  color: #ffffff;
-  margin: 0;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-.confirmation-footer {
-  text-align: center;
-  padding-top: 8px;
-}
-
-.confirmation-active {
-  font-size: 16px;
-  color: #00ff88;
-  font-weight: 700;
-  margin: 0;
-  animation: pulseText 1.5s ease infinite;
-}
-
-@keyframes pulseText {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-}
-
-/* Goal Setup Mobile Optimization */
+/* Mobile optimization */
 @media (max-width: 375px) {
-  .goal-setup-screen {
-    padding: 24px 12px;
+  .home-screen {
+    padding: 12px;
+    padding-bottom: 100px;
   }
   
-  .setup-title {
+  .status-text {
     font-size: 28px;
   }
   
-  .field-label {
-    font-size: 16px;
+  .celebration-text h1 {
+    font-size: 32px;
   }
   
-  .confirmation-card {
-    padding: 28px 20px;
+  .celebration-text h2 {
+    font-size: 24px;
+  }
+  
+  .add-goal-screen {
+    padding: 12px;
   }
 }
