@@ -37,7 +37,7 @@ function App() {
         setShowCelebration(false);
       }, 3000);
     }
-  }, [assignments]);
+  }, [assignments, isLocked]);
 
   return (
     <div className="App">
