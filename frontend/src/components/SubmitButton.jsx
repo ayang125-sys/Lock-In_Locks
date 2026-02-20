@@ -1,16 +1,16 @@
 import React from 'react';
-import { Lock } from 'lucide-react';
+import { Plus } from 'lucide-react';
 
 const SubmitButton = ({ isValid, onClick }) => {
   return (
     <button
-      className={`submit-button ${!isValid ? 'disabled' : 'active'}`}
+      className={`add-goal-submit ${!isValid ? 'disabled' : 'active'}`}
       disabled={!isValid}
       onClick={onClick}
-      data-testid="submit-button"
+      data-testid="add-goal-submit"
     >
-      <Lock size={20} />
-      <span>Lock It In</span>
+      <Plus size={20} />
+      <span>Add Goal</span>
     </button>
   );
 };

@@ -1,102 +1,91 @@
 import { useState, useEffect } from 'react';
 import '@/App.css';
-import GoalSetupScreen from '@/components/GoalSetupScreen';
-import Dashboard from '@/components/Dashboard';
+import HomeScreen from '@/components/HomeScreen';
+import AddGoalScreen from '@/components/AddGoalScreen';
 import UnlockCelebration from '@/components/UnlockCelebration';
-import ConfirmationSummary from '@/components/ConfirmationSummary';
 
 function App() {
-  // Navigation state
-  const [currentScreen, setCurrentScreen] = useState('setup'); // 'setup' or 'dashboard'
+  // Navigation state - app always loads on home
+  const [currentScreen, setCurrentScreen] = useState('home'); // 'home' or 'add'
   
-  // Goal setup form state
-  const [distractionName, setDistractionName] = useState('');
-  const [distractionCategory, setDistractionCategory] = useState('');
-  const [goalDescription, setGoalDescription] = useState('');
+  // Goals array - each goal is an assignment to complete
+  const [assignments, setAssignments] = useState([]);
   
-  // Mock assignments data - starts locked
-  const [assignments, setAssignments] = useState([
-    { id: 1, assignment: 'Lab 3', course: 'CMPS 101', done: false },
-    { id: 2, assignment: 'Problem Set 5', course: 'MATH 23A', done: false }
-  ]);
-
-  const [isLocked, setIsLocked] = useState(true);
+  // Unlock celebration state
   const [showCelebration, setShowCelebration] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false);
 
-  // Toggle assignment completion
-  const toggleAssignment = (id) => {
-    setAssignments((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, done: !item.done } : item
+  // Compute lock state directly from assignments - NEVER store as separate state
+  const isUnlocked = assignments.length === 0 || assignments.every(a => a.done);
+
+  // Add new goal
+  const addGoal = (distractionName, distractionCategory, goalDescription) => {
+    const newGoal = {
+      id: Date.now(),
+      distraction_name: distractionName,
+      distraction_category: distractionCategory,
+      goal_description: goalDescription,
+      done: false
+    };
+    
+    setAssignments(prev => [...prev, newGoal]);
+    // Automatically return to home screen after adding
+    setCurrentScreen('home');
+  };
+
+  // Toggle goal completion
+  const toggleDone = (id) => {
+    setAssignments(prev =>
+      prev.map(goal =>
+        goal.id === id ? { ...goal, done: !goal.done } : goal
       )
     );
   };
 
-  // Re-evaluate lock state whenever assignments change
+  // Watch for unlock condition
   useEffect(() => {
-    const allDone = assignments.length === 0 || assignments.every((a) => a.done);
-    const wasLocked = isLocked;
-    
-    setIsLocked(!allDone);
-
-    // Trigger celebration when transitioning from locked to unlocked
-    if (wasLocked && allDone && assignments.length > 0) {
-      setShowCelebration(true);
-      // Auto-dismiss after 3 seconds
-      setTimeout(() => {
-        setShowCelebration(false);
-      }, 3000);
+    // Only trigger if we have goals and all are done
+    if (assignments.length > 0 && assignments.every(a => a.done)) {
+      // Check if we just unlocked (not already celebrating)
+      if (!showCelebration) {
+        setShowCelebration(true);
+        
+        // Auto-dismiss after 3 seconds
+        const timer = setTimeout(() => {
+          setShowCelebration(false);
+        }, 3000);
+        
+        // Cleanup timer
+        return () => clearTimeout(timer);
+      }
     }
-  }, [assignments, isLocked]);
+  }, [assignments, showCelebration]);
 
-  // Handle goal setup submission
-  const handleGoalSubmit = () => {
-    // Show confirmation overlay
-    setShowConfirmation(true);
-    
-    // After 2 seconds, hide confirmation and navigate to dashboard
-    setTimeout(() => {
-      setShowConfirmation(false);
-      setCurrentScreen('dashboard');
-    }, 2000);
+  // Navigate to add goal screen
+  const handleAddGoal = () => {
+    setCurrentScreen('add');
   };
 
-  // Handle back button from dashboard
-  const handleBackToSetup = () => {
-    setCurrentScreen('setup');
+  // Navigate back to home
+  const handleBackToHome = () => {
+    setCurrentScreen('home');
   };
 
   return (
     <div className="App">
-      {/* Confirmation Overlay (shown after Lock It In) */}
-      {showConfirmation && (
-        <ConfirmationSummary
-          distractionName={distractionName}
-          distractionCategory={distractionCategory}
-          goalDescription={goalDescription}
-        />
-      )}
-
-      {/* Screen Navigation */}
-      {currentScreen === 'setup' ? (
-        <GoalSetupScreen
-          distractionName={distractionName}
-          distractionCategory={distractionCategory}
-          goalDescription={goalDescription}
-          onDistractionNameChange={setDistractionName}
-          onDistractionCategoryChange={setDistractionCategory}
-          onGoalDescriptionChange={setGoalDescription}
-          onSubmit={handleGoalSubmit}
-        />
-      ) : showCelebration ? (
+      {/* Show celebration overlay when all goals done */}
+      {showCelebration ? (
         <UnlockCelebration />
-      ) : (
-        <Dashboard
+      ) : currentScreen === 'home' ? (
+        <HomeScreen
           assignments={assignments}
-          isLocked={isLocked}
-          toggleAssignment={toggleAssignment}
-          onBack={handleBackToSetup}
+          isUnlocked={isUnlocked}
+          onToggleDone={toggleDone}
+          onAddGoal={handleAddGoal}
+        />
+      ) : (
+        <AddGoalScreen
+          onAddGoal={addGoal}
+          onBack={handleBackToHome}
         />
       )}
     </div>
