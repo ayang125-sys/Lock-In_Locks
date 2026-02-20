@@ -19,6 +19,17 @@ const DeadlineField = ({ value, onChange }) => {
     return `Locked until ${date.toLocaleDateString('en-US', options)}`;
   };
 
+  // Validate that selected date is in the future
+  const handleChange = (e) => {
+    const selectedDate = new Date(e.target.value);
+    const now = new Date();
+    
+    // Only update if date is in the future
+    if (selectedDate > now) {
+      onChange(e.target.value);
+    }
+  };
+
   return (
     <div className="field-section" data-testid="deadline-field">
       <label className="field-label">
